@@ -1,17 +1,22 @@
 #include <stdio.h>
 #include <string.h>
+
 #define NUM_ESTUDIANTES 5
 #define NUM_ASIGNATURAS 3
 #define MAX_NOMBRE 50
+
+// Función para limpiar el buffer de entrada (aunque ya no es necesaria con fgets)
 void limpiarBuffer() {
     int c;
-            while ((c = getchar()) != '\n' && c != EOF) {}}
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
+// Función para ingresar los nombres de los estudiantes
 void ingresarNombres(char estudiantes[NUM_ESTUDIANTES][MAX_NOMBRE]) {
     for (int i = 0; i < NUM_ESTUDIANTES; i++) {
         printf("Ingrese el nombre del estudiante %d: ", i + 1);
-        getchar();  // Limpiar el buffer de entrada
         fgets(estudiantes[i], MAX_NOMBRE, stdin);
-        
+
         // Eliminar el salto de línea al final de la cadena si existe
         size_t len = strlen(estudiantes[i]);
         if (len > 0 && estudiantes[i][len - 1] == '\n') {
@@ -19,13 +24,8 @@ void ingresarNombres(char estudiantes[NUM_ESTUDIANTES][MAX_NOMBRE]) {
         }
     }
 }
-void ingresarNombres(char estudiantes[NUM_ESTUDIANTES][MAX_NOMBRE]) {
-    for (int i = 0; i < NUM_ESTUDIANTES; i++) {
-        printf("Ingrese el nombre del estudiante %d: ", i + 1);
-        scanf("%s", estudiantes[i]);
-    }
-}
 
+// Función para ingresar las calificaciones de los estudiantes
 void ingresarCalificaciones(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURAS], char estudiantes[NUM_ESTUDIANTES][MAX_NOMBRE]) {
     const char *asignaturas[] = {"Calculo", "Biologia", "Electronica"};
     for (int i = 0; i < NUM_ESTUDIANTES; i++) {
@@ -42,6 +42,7 @@ void ingresarCalificaciones(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURA
     }
 }
 
+// Función para calcular los promedios
 void calcularPromedios(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURAS], float promedioEstudiantes[NUM_ESTUDIANTES], float promedioAsignaturas[NUM_ASIGNATURAS]) {
     for (int i = 0; i < NUM_ESTUDIANTES; i++) {
         float suma = 0;
@@ -60,6 +61,7 @@ void calcularPromedios(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURAS], f
     }
 }
 
+// Función para encontrar las calificaciones más altas y bajas
 void encontrarCalificacionesExtremas(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURAS], float altaEstudiante[NUM_ESTUDIANTES], float bajaEstudiante[NUM_ESTUDIANTES], float altaAsignatura[NUM_ASIGNATURAS], float bajaAsignatura[NUM_ASIGNATURAS]) {
     for (int i = 0; i < NUM_ESTUDIANTES; i++) {
         altaEstudiante[i] = calificaciones[i][0];
@@ -88,6 +90,7 @@ void encontrarCalificacionesExtremas(float calificaciones[NUM_ESTUDIANTES][NUM_A
     }
 }
 
+// Función para contar los aprobados y reprobados
 void contarAprobadosReprobados(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURAS], int aprobados[NUM_ASIGNATURAS], int reprobados[NUM_ASIGNATURAS]) {
     for (int j = 0; j < NUM_ASIGNATURAS; j++) {
         aprobados[j] = 0;
@@ -102,6 +105,7 @@ void contarAprobadosReprobados(float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNAT
     }
 }
 
+// Función para imprimir todos los resultados
 void imprimirResultados(char estudiantes[NUM_ESTUDIANTES][MAX_NOMBRE], const char *asignaturas[], float calificaciones[NUM_ESTUDIANTES][NUM_ASIGNATURAS], float promedioEstudiantes[NUM_ESTUDIANTES], float promedioAsignaturas[NUM_ASIGNATURAS], float altaEstudiante[NUM_ESTUDIANTES], float bajaEstudiante[NUM_ESTUDIANTES], float altaAsignatura[NUM_ASIGNATURAS], float bajaAsignatura[NUM_ASIGNATURAS], int aprobados[NUM_ASIGNATURAS], int reprobados[NUM_ASIGNATURAS]) {
     printf("\nCalificaciones por estudiante y asignatura:\n");
     for (int i = 0; i < NUM_ESTUDIANTES; i++) {
